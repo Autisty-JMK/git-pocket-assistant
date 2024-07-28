@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/event_item_tlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5sp"
+
+        >
+
+        <TextView
+            android:id="@+id/item_time_event"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/item_lasting_event"
+            android:textColor="@color/textdarck"
+            app:layout_constraintBaseline_toBaselineOf="@id/item_name_event"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/item_lasting_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1ч"
+            app:layout_constraintTop_toBottomOf="@+id/item_time_event"
+            app:layout_constraintStart_toStartOf="@id/item_time_event"
+            app:layout_constraintEnd_toEndOf="@id/item_time_event"
+            android:textColor="@color/textdarck2"
+            android:visibility="visible"
+
+            />
+
+        <TextView
+            android:id="@+id/item_name_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name events"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@id/item_time_event"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/image_location"
+            app:layout_constraintEnd_toStartOf="@id/checked_event"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constrainedWidth="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="10dp"
+            app:layout_goneMarginBottom="10dp"
+            android:textColor="@color/textdarck"
+            android:layout_marginStart="5dp"
+            />
+
+        <ImageView
+            android:id="@+id/image_location"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_location_line"
+            app:layout_constraintTop_toBottomOf="@id/item_name_event"
+            app:layout_constraintStart_toEndOf="@id/item_time_event"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
+            android:visibility="visible"
+            android:layout_marginStart="5dp"
+            />
+
+        <TextView
+            android:id="@+id/item_name_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location"
+            app:layout_constraintStart_toEndOf="@id/image_location"
+            app:layout_constraintTop_toTopOf="@id/image_location"
+            app:layout_constraintBottom_toBottomOf="@id/image_location"
+            app:layout_constraintEnd_toStartOf="@id/checked_event"
+            app:layout_constraintHorizontal_bias="0"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constrainedWidth="true"
+            android:textSize="15sp"
+            android:visibility="gone"
+            android:textColor="@color/textdarck2"
+            />
+
+
+
+        <CheckBox
+            android:id="@+id/checked_event"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <View
+        android:id="@+id/delimeter_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darckgray"
+        android:layout_below="@+id/event_item_tlist"
+        />
+
+
+</RelativeLayout>

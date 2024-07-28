@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/event_item_tlist"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="10sp"
+
+        >
+
+        <TextView
+            android:id="@+id/item_time_event"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:text="00:00"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:textColor="@color/textdarck"
+            />
+
+        <TextView
+            android:id="@+id/item_name_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="name event"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@id/item_time_event"
+            app:layout_constraintEnd_toEndOf="@id/checked"
+            android:textColor="@color/textdarck"
+
+            />
+
+        <CheckBox
+            android:id="@+id/checked_event"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="invisible"
+            />
+
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/delimeter_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/darckgray"
+        android:layout_below="@+id/event_item_tlist"
+        />
+
+
+</RelativeLayout>

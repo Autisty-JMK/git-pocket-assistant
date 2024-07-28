@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/date_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darckgray"
+        >
+
+        <TextView
+            android:id="@+id/item_data_event"
+            android:layout_width="wrap_content"
+            android:layout_height="25sp"
+            android:gravity="start"
+            android:textSize="15sp"
+            android:text="дата"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="5sp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="2sp"
+            app:layout_constraintEnd_toStartOf="@+id/checked"
+            android:textColor="@color/textdarck"
+            />
+
+        <CheckBox
+            android:id="@+id/checked_data"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@+id/date_item_list"
+            android:visibility="invisible"
+            android:onClick="onDataEventClick"
+
+            />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>

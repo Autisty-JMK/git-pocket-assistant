@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pocket Diary App</string>
+    <string name="button_go_timetabel">Расписание</string>
+    <string name="button_go_main">Главная</string>
+    <string name="toptext_in_main">Краманный помощник</string>
+    <string name="toptext_save">сохранить</string>
+</resources>
