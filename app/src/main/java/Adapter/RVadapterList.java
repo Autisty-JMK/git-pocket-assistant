@@ -98,7 +98,7 @@ public class RVadapterList extends RecyclerView.Adapter {
 
             //Настраиваем вид даты
             if (listEventsOneDay.get(eventListViewHolder.getAdapterPosition()).getType_time_of_week() == 1) {
-                ((DateItemViewHolder) eventListViewHolder).dataEvent.setTextColor(Color.parseColor("#FFFFFF"));//Если сегодняшний день, то ыделить еблым
+                ((DateItemViewHolder) eventListViewHolder).dataEvent.setTextColor(Color.parseColor("#FFFFFF"));//Если сегодняшний день, то выделить белым
                 ((DateItemViewHolder) eventListViewHolder).dataEvent.setTextSize(2, 20);
             } else {
                 ((DateItemViewHolder) eventListViewHolder).dataEvent.setTextColor(Color.parseColor("#ADADAD"));//В другом случае по умолчанию
@@ -155,10 +155,10 @@ public class RVadapterList extends RecyclerView.Adapter {
                 ((EventItemViewHolder) eventListViewHolder).checkEvent.setChecked(false);
             }
 
-            /*Log.d("mysrcl: ", "локация мероприятия: " + listEventsOneDay.get(eventListViewHolder.getAdapterPosition()).getNameEvent()
+            /*-"mysrcl: ", "локация мероприятия: " + listEventsOneDay.get(eventListViewHolder.getAdapterPosition()).getNameEvent()
                     + "   "+ listEventsOneDay.get(eventListViewHolder.getAdapterPosition()).getName_location());*/
 
-            //Настройка состояния занча Локации
+            //Настройка состояния занчка Локации
             if(listEventsOneDay.get(eventListViewHolder.getAdapterPosition()).getName_location() != null){
 
                 ((EventItemViewHolder) eventListViewHolder).imgLocation.setVisibility(View.VISIBLE);
@@ -299,7 +299,7 @@ public class RVadapterList extends RecyclerView.Adapter {
         }
     }
 
-    //Фенкции долгого нажатия по объекту Дата
+    //Функции долгого нажатия по объекту Дата
     private void OnLongClickDateItem(RecyclerView.ViewHolder eventListViewHolder){
         //Log.d("mysrcl: ", "долгое нажатие");
         //Проверяем режим нажатия (Выбора или Нажатия)

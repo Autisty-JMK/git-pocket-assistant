@@ -23,7 +23,7 @@ import Model.Event;
 import Model.ListEventAndTime;
 
 //Инструменты обработки массива мероприятий для адаптера (из Серверной БД)
-public class  AdapterListHelper {
+public class  ApiAdapterListHelper {
 
     //Реализуем интерфейс прокрутки
     public interface OnScrollToPosition{
@@ -32,12 +32,9 @@ public class  AdapterListHelper {
 
     //Шаблоны для конфертации даты
     private SimpleDateFormat dfDB = new SimpleDateFormat("yyyy-MM-dd");
-    //private SimpleDateFormat dfDD = new SimpleDateFormat("dd.MM.yyyy");
-    //private SimpleDateFormat dftime = new SimpleDateFormat("HH:mm");
     private SimpleDateFormat dfview = new SimpleDateFormat("EEEE dd MMMM");
     private SimpleDateFormat dfview2 = new SimpleDateFormat("EEEE dd MMMM yyyy");//формат даты если год не текущий
     private SimpleDateFormat dfrazn = new SimpleDateFormat("dd/MM/yyyy");
-    //private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     private Calendar calendar, today_calendar, tomorrow_calendar, yesterday_calendar;
     private Calendar now_calendar;//независимый календать текущей даты
     private int mYear , mMonth, mDay, now_mYear2;
@@ -47,48 +44,48 @@ public class  AdapterListHelper {
     public OnScrollToPosition onScrollToPosition;
 
     //коструктор(шаблонный)
-    public AdapterListHelper(Context context, OnScrollToPosition onScrollToPosition){
+    public ApiAdapterListHelper(Context context, OnScrollToPosition onScrollToPosition){
         this.onScrollToPosition = onScrollToPosition;
     }
 
     //Создание нового списка мероприятий с подгружением предыдущих 30 дней
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ListEventAndTime uploadListAbove(
-            Calendar firstdateGlobal,
-            Context context)
+                Calendar firstdateGlobal,
+                Context context)
             throws ParseException {
-        firstdateGlobal.add(Calendar.DAY_OF_MONTH, -1);
+                 firstdateGlobal.add(Calendar.DAY_OF_MONTH, -1);
 
         // создаем календари для работы с датой
         Calendar lasdateUpload =
-                new GregorianCalendar(
+                    new GregorianCalendar(
                         firstdateGlobal.get(Calendar.YEAR),
                         firstdateGlobal.get(Calendar.MONTH),
                         firstdateGlobal.get(Calendar.DAY_OF_MONTH)),
                 firstdateUpload =
                         new GregorianCalendar(
-                                firstdateGlobal.get(Calendar.YEAR),
-                                firstdateGlobal.get(Calendar.MONTH),
-                                firstdateGlobal.get(Calendar.DAY_OF_MONTH));
+                            firstdateGlobal.get(Calendar.YEAR),
+                            firstdateGlobal.get(Calendar.MONTH),
+                            firstdateGlobal.get(Calendar.DAY_OF_MONTH));
 
         // при формировании первой даты отступаем на 31 день ранее по календарю
         firstdateUpload.add(Calendar.DAY_OF_MONTH, -30);
 
         // запрашиваем из БД доп список мероприятий за период
         ArrayList<DataEvents> listEventsOneDay =
-                new ArrayList<>(
-                        CreateUpdateAllLoadList(
-                                context,
-                                firstdateUpload,
-                                lasdateUpload,
-                                false));
+                                 new ArrayList<>(
+                                        CreateUpdateAllLoadList(
+                                            context,
+                                            firstdateUpload,
+                                            lasdateUpload,
+                                            false));
 
         // формируес модель для возврата (список мероприятитй, первая и последняя дата общег осписка)
         //Log.d("mysrcl: ", "добавить С:  " + dfview.format(firstdateUpload.getTime()) + "ПО: " + dfview.format(lasdateUpload.getTime()));
         listEventAndTime = new ListEventAndTime(
-                listEventsOneDay,
-                firstdateUpload,
-                lasdateUpload);
+                                    listEventsOneDay,
+                                    firstdateUpload,
+                                    lasdateUpload);
 
         return listEventAndTime;
     }
@@ -96,50 +93,50 @@ public class  AdapterListHelper {
     //Создание нового списка мероприятий с подгружением следующих 30 дней
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ListEventAndTime uploadListbelow(
-            Calendar lastdateGlobal,
-            Context context)
-            throws ParseException {
-        //Переходим к следующей дате от последней в списке
-        lastdateGlobal.add(Calendar.DAY_OF_MONTH, 1);
+                                Calendar lastdateGlobal,
+                                Context context)
+        throws ParseException {
+                //Переходим к следующей дате от последней в списке
+                lastdateGlobal.add(Calendar.DAY_OF_MONTH, 1);
 
-        // создаем календари для работы с датой
-        Calendar firstdateUpload =
-                new GregorianCalendar(
-                        lastdateGlobal.get(Calendar.YEAR),
-                        lastdateGlobal.get(Calendar.MONTH),
-                        lastdateGlobal.get(Calendar.DAY_OF_MONTH)),
-                lasdateUpload =
-                        new GregorianCalendar(
-                                lastdateGlobal.get(Calendar.YEAR),
-                                lastdateGlobal.get(Calendar.MONTH),
-                                lastdateGlobal.get(Calendar.DAY_OF_MONTH));
+                // создаем календари для работы с датой
+                Calendar firstdateUpload =
+                            new GregorianCalendar(
+                                    lastdateGlobal.get(Calendar.YEAR),
+                                    lastdateGlobal.get(Calendar.MONTH),
+                                    lastdateGlobal.get(Calendar.DAY_OF_MONTH)),
+                        lasdateUpload =
+                            new GregorianCalendar(
+                                    lastdateGlobal.get(Calendar.YEAR),
+                                    lastdateGlobal.get(Calendar.MONTH),
+                                    lastdateGlobal.get(Calendar.DAY_OF_MONTH));
 
-        // при формировании последней даты отступаем на 31 день позже по календарю
-        lasdateUpload.add(Calendar.DAY_OF_MONTH, 30);
+                 // при формировании последней даты отступаем на 31 день позже по календарю
+                lasdateUpload.add(Calendar.DAY_OF_MONTH, 30);
 
-        // запрашиваем из БД доп список мероприятий за период
-        ArrayList<DataEvents> listEventsOneDay =
-                new ArrayList<>(CreateUpdateAllLoadList(
-                        context,
-                        firstdateUpload,
-                        lasdateUpload,
-                        false));
+                 // запрашиваем из БД доп список мероприятий за период
+                ArrayList<DataEvents> listEventsOneDay =
+                        new ArrayList<>(CreateUpdateAllLoadList(
+                                context,
+                                firstdateUpload,
+                                lasdateUpload,
+                                false));
 
-        // формируес модель для возврата (список мероприятитй, первая и последняя дата общег осписка)
-        listEventAndTime =
-                new ListEventAndTime(
-                        listEventsOneDay,
-                        firstdateUpload,
-                        lasdateUpload);
+                // формируес модель для возврата (список мероприятитй, первая и последняя дата общег осписка)
+                listEventAndTime =
+                        new ListEventAndTime(
+                            listEventsOneDay,
+                            firstdateUpload,
+                            lasdateUpload);
 
-        return listEventAndTime;
+                return listEventAndTime;
     }
 
     //Запрашиваем дополнительный список  мероприятий за период из БД
     private List<Event> getEventListFromDB(
-            Calendar firstdate,
-            Calendar lastdate,
-            Context context){
+                            Calendar firstdate,
+                            Calendar lastdate,
+                            Context context){
 
         DataBaseHandler dataBaseHandler =
                 new DataBaseHandler(context);
@@ -155,20 +152,20 @@ public class  AdapterListHelper {
     //Формирования массива для адаптера Всего загруженного списка (после прокрутки)
     @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<DataEvents> CreateUpdateAllLoadList(
-            Context context,
-            Calendar firstdate,
-            Calendar lastdate,
-            boolean firs_Start)
+                                    Context context,
+                                    Calendar firstdate,
+                                    Calendar lastdate,
+                                    boolean firs_Start)
             throws ParseException {
-        ArrayList<DataEvents> listEventsOneDay =
-                new ArrayList<>();
+                        ArrayList<DataEvents> listEventsOneDay =
+                                new ArrayList<>();
 
-        List<Event> eventList =
-                new ArrayList<>(
-                        getEventListFromDB(
-                                firstdate,
-                                lastdate,
-                                context));
+                        List<Event> eventList =
+                                new ArrayList<>(
+                                        getEventListFromDB(
+                                            firstdate,
+                                            lastdate,
+                                            context));
 
         //Работа с датой
         calendar =
@@ -202,13 +199,13 @@ public class  AdapterListHelper {
                 LocalDate.parse(
                         dfrazn.format(
                                 firstdate.getTime()),
-                        formatter);
+                                formatter);
         //вторая дата в формате
         LocalDate localDate2 =
                 LocalDate.parse(
                         dfrazn.format(
                                 lastdate.getTime()),
-                        formatter);
+                                formatter);
 
         //нахоид разность между датами в днях
         int count = (int)ChronoUnit.DAYS.between(localDate1,localDate2);
@@ -308,9 +305,9 @@ public class  AdapterListHelper {
                 // находим мероприячтие из списка по дате
                 if(events.getDate_start()
                         .equals(dfDB.format(calendar.getTime()))){
-                    String date = events.getDate_start();
-                    Date dataf = format.parse(date);
-                    String lasting_time = "";
+                            String date = events.getDate_start();
+                            Date dataf = format.parse(date);
+                            String lasting_time = "";
 
                     //первая дата в формате
                     LocalTime timeofTime1 =
@@ -350,7 +347,7 @@ public class  AdapterListHelper {
                             + count_time + " часов "
                             + count_minute + " минут   " + "длительность: " + lasting_time);*/
 
-                    // формируем СПИСОК мероприятий по указанной дате
+                    // формируем список мероприятий по указанной дате
                     dataEvents =
                             new DataEvents(
                                     events.getId() ,
@@ -374,7 +371,7 @@ public class  AdapterListHelper {
             }
             // если по указанной дате не найдено мероприятий, создаем список без мероприятий
             if(!isEvent){
-                // формируем ПУСТОЙ список мероприятией
+                // формируем пустой список мероприятией
                 dataEvents =
                         new DataEvents(
                                 2,

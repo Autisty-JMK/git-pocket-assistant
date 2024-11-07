@@ -47,7 +47,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Util.KEY_NAME_EVENT, event.getName());
-        contentValues.put(Util.KEY_DATA_EVENT, event.getDate());
+        contentValues.put(Util.KEY_DATA_EVENT, event.getDate_start());
         contentValues.put(Util.KEY_TIME_START_EVENT, event.getTime_start());
         contentValues.put(Util.KEY_TIME_END_EVENT, event.getTime_end());
         contentValues.put(Util.KEY_NAME_LOCATION_EVENT, event.getName_location());
@@ -86,7 +86,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 int id_collum_Categories = cursor.getColumnIndex(Util.KEY_CATEGORIES_EVENT);
                 Event event = new Event();
                 event.setId(Integer.parseInt(cursor.getString(id_collum_ID)));
-                event.setDate(cursor.getString(id_collum_Date));
+                event.setDate_start(cursor.getString(id_collum_Date));
                 event.setTime_start(cursor.getString(id_collum_TimeStart));
                 event.setTime_end(cursor.getString(id_collum_TimeEnd));
                 event.setName(cursor.getString(id_collum_Name));
@@ -104,7 +104,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public int updateEvent(Event event){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Util.KEY_DATA_EVENT, event.getDate());
+        contentValues.put(Util.KEY_DATA_EVENT, event.getDate_start());
         contentValues.put(Util.KEY_TIME_START_EVENT, event.getTime_start());
         contentValues.put(Util.KEY_TIME_END_EVENT, event.getTime_end());
         contentValues.put(Util.KEY_NAME_EVENT, event.getName());
@@ -134,7 +134,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 for (Event events : eventList){
                     Log.d("mysrcl: ",
                                  "ID: " + events.getId()
-                                    + "  date: " + events.getDate()
+                                    + "  date: " + events.getDate_start()
                                     + "  time start: " + events.getTime_start()
                                     + "  time end: " + events.getTime_end()
                                     + "  name: " + events.getName()
@@ -149,18 +149,20 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         List<Event> eventlist = new ArrayList<>();
         String selectAllEvent = "Select * from " + Util.TABLE_NAME + " Where " +  Util.KEY_DATA_EVENT + " BETWEEN " + "'" + firstdate + "'" + " AND " + "'" + lastdate + "'" + " ORDER BY " + Util.KEY_DATA_EVENT + " ASC, " + Util.KEY_TIME_START_EVENT + " ASC";
         Cursor cursor = db.rawQuery(selectAllEvent, null);
+        int id_collum_ID = cursor.getColumnIndex(Util.KEY_ID);
+        int id_collum_Date = cursor.getColumnIndex(Util.KEY_DATA_EVENT);
+        int id_collum_TimeStart = cursor.getColumnIndex(Util.KEY_TIME_START_EVENT);
+        int id_collum_TimeEnd= cursor.getColumnIndex(Util.KEY_TIME_END_EVENT);
+        int id_collum_Name = cursor.getColumnIndex(Util.KEY_NAME_EVENT);
+        int id_collum_NameLocation = cursor.getColumnIndex(Util.KEY_NAME_LOCATION_EVENT);
+        int id_collum_Categories = cursor.getColumnIndex(Util.KEY_CATEGORIES_EVENT);
         if(cursor.moveToFirst()){
             do{
-                int id_collum_ID = cursor.getColumnIndex(Util.KEY_ID);
-                int id_collum_Date = cursor.getColumnIndex(Util.KEY_DATA_EVENT);
-                int id_collum_TimeStart = cursor.getColumnIndex(Util.KEY_TIME_START_EVENT);
-                int id_collum_TimeEnd= cursor.getColumnIndex(Util.KEY_TIME_END_EVENT);
-                int id_collum_Name = cursor.getColumnIndex(Util.KEY_NAME_EVENT);
-                int id_collum_NameLocation = cursor.getColumnIndex(Util.KEY_NAME_LOCATION_EVENT);
-                int id_collum_Categories = cursor.getColumnIndex(Util.KEY_CATEGORIES_EVENT);
+
+                //переписать в один запрос ORDER BY
                 Event event = new Event();
                 event.setId(Integer.parseInt(cursor.getString(id_collum_ID)));
-                event.setDate(cursor.getString(id_collum_Date));
+                event.setDate_start(cursor.getString(id_collum_Date));
                 event.setTime_start(cursor.getString(id_collum_TimeStart));
                 event.setTime_end(cursor.getString(id_collum_TimeEnd));
                 event.setName(cursor.getString(id_collum_Name));

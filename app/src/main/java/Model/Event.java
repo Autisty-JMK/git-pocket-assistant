@@ -4,8 +4,9 @@ package Model;
 public class Event {
 
     private int id;
-    private String date;
     private String name;
+    private String date_start;
+    private String date_end;
     private String time_start;
     private String time_end;
     private String name_location;
@@ -15,9 +16,30 @@ public class Event {
     public Event() {
     }
 
-    public Event(int id, String date, String time_start, String time_end, String name, String name_location, String categories){
+    public Event(int id, String name, String date_start, String time_start, String date_end,  String time_end, String name_location, String categories) {
         this.id = id;
-        this.date = date;
+        this.name = name;
+        this.date_start = date_start;
+        this.date_end = date_end;
+        this.time_start = time_start;
+        this.time_end = time_end;
+        this.name_location = name_location;
+        this.categories = categories;
+    }
+
+    public Event(String name, String date_start, String time_start, String date_end,  String time_end, String name_location, String categories) {
+        this.name = name;
+        this.date_start = date_start;
+        this.date_end = date_end;
+        this.time_start = time_start;
+        this.time_end = time_end;
+        this.name_location = name_location;
+        this.categories = categories;
+    }
+
+    public Event(int id, String name, String date_start, String time_start, String time_end, String name_location, String categories){
+        this.id = id;
+        this.date_start = date_start;
         this.time_start = time_start;
         this.time_end = time_end;
         this.name = name;
@@ -25,9 +47,9 @@ public class Event {
         this.categories = categories;
     }
 
-    public Event(String date, String time_start, String time_end, String name, String name_location, String categories){
+    public Event(String name, String date_start, String time_start, String time_end,  String name_location, String categories){
         this.id = id;
-        this.date = date;
+        this.date_start = date_start;
         this.time_start = time_start;
         this.time_end = time_end;
         this.name = name;
@@ -36,17 +58,17 @@ public class Event {
     }
 
     //Конструктор класса 4 переменные
-    public Event(int id, String date, String time_start, String name) {
+    public Event(int id, String name, String date_start, String time_start) {
         this.id = id;
-        this.date = date;
+        this.date_start = date_start;
         this.time_start = time_start;
         this.name = name;
 
     }
 
     //Конструктор класса 3 переменные
-    public Event(String date, String time_start, String name) {
-        this.date = date;
+    public Event(String name, String  date_start, String time_start) {
+        this.date_start = date_start;
         this.time_start = time_start;
         this.name = name;
 
@@ -56,8 +78,8 @@ public class Event {
     public int getId() {
         return id;
     }
-    public String getDate() {
-        return date;
+    public String getDate_start() {
+        return date_start;
     }
     public String getName() {
         return name;
@@ -67,7 +89,7 @@ public class Event {
     }
 
     public String getDateTime(){
-        return date+" "+ time_start;
+        return date_start +" "+ time_start;
     }
     //КОНЕЦ Геттеры переменных
 
@@ -75,8 +97,8 @@ public class Event {
     public void setId(int id) {
         this.id = id;
     }
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate_start(String date_start) {
+        this.date_start = date_start;
     }
     public void setName(String name) {
         this.name = name;
@@ -86,7 +108,7 @@ public class Event {
     }
     public void setDateTime(String dataTime){
         String[] data_time = dataTime.split(" ");
-        this.date = data_time[0];
+        this.date_start = data_time[0];
         this.time_start = data_time[1];
     }
     public String getTime_end() {
@@ -106,6 +128,12 @@ public class Event {
     }
     public void setCategories(String categories) {
         this.categories = categories;
+    }
+    public String getDate_end() {
+        return date_end;
+    }
+    public void setDate_end(String date_end) {
+        this.date_end = date_end;
     }
 
     //КОНЕЦ Сеттеры переменных

@@ -63,7 +63,7 @@ public class Fragment_timetable extends Fragment implements View.OnClickListener
     private Calendar calendar;
     private int numberFocusItem;
     private Dialog dialog;
-    private EditText editTextDate, editStartTextTime, editEndTextTime , editTextName, editNameLocation, editCategories ;
+    private EditText editStartTextDate, editStartTextTime, editEndTextTime, editEndtTextDate , editTextName, editNameLocation, editCategories ;
     private Button btnClose, btnSave;
     private boolean isLoading = false;
     private AdapterListHelper createListForAdapter;
@@ -138,8 +138,8 @@ public class Fragment_timetable extends Fragment implements View.OnClickListener
 
     //Надо вынести в отделный класс !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void goAddEvent(View view) {
-        Intent intent1 = new Intent(getContext(), AddEvent.class);
-        startActivity(intent1);
+        //Intent intent1 = new Intent(getContext(), AddEvent.class);
+        //startActivity(intent1);
     }
 
     //Функция диалогового окна
@@ -152,8 +152,9 @@ public class Fragment_timetable extends Fragment implements View.OnClickListener
 
             //Инициализируем объекты диалогово окна
             editTextName = (EditText) dialog.findViewById(R.id.editTextName);
-            editTextDate = (EditText) dialog.findViewById(R.id.editDatatext);
+            editStartTextDate = (EditText) dialog.findViewById(R.id.editDataStarttext);
             editStartTextTime = (EditText) dialog.findViewById(R.id.editStartTimetext);
+            editEndtTextDate = (EditText) dialog.findViewById(R.id.editDataEndtext) ;
             editEndTextTime = (EditText) dialog.findViewById(R.id.editEndTimetext);
             editNameLocation = (EditText) dialog.findViewById(R.id.editNameLocation);
             editCategories = (EditText) dialog.findViewById(R.id.editCategories);
@@ -161,8 +162,9 @@ public class Fragment_timetable extends Fragment implements View.OnClickListener
             btnSave = (Button) dialog.findViewById(R.id.btnSave);
 
             //Устанавливаем слушатели нажатий
-            editTextDate.setOnClickListener(this);
+            editStartTextDate.setOnClickListener(this);
             editStartTextTime.setOnClickListener(this);
+            editEndtTextDate.setOnClickListener(this);
             editEndTextTime.setOnClickListener(this);
             btnClose.setOnClickListener(this);
             btnSave.setOnClickListener(this);
@@ -193,9 +195,13 @@ public class Fragment_timetable extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.editDatatext:
+            case R.id.editDataStarttext:
                 // вызываем диалог с выбором даты
-                TimeDataPicker.callDatePicker(getContext(), editTextDate);
+                TimeDataPicker.callDatePicker(getContext(), editStartTextDate);
+                break;
+            case R.id.editDataEndtext:
+                // вызываем диалог с выбором даты
+                TimeDataPicker.callDatePicker(getContext(), editEndtTextDate);
                 break;
             case R.id.editStartTimetext:
                 // вызываем диалог с выбором времени
@@ -210,14 +216,14 @@ public class Fragment_timetable extends Fragment implements View.OnClickListener
                 break;
             case R.id.btnSave:
                 // вызываем сохранение
-                if(editTextDate.getText().toString().equals("") ){
+                if(editStartTextDate.getText().toString().equals("") ){
                     toast =  Toast.makeText(getContext(), "Укажите дату !",Toast.LENGTH_SHORT);
                 }else if(editStartTextTime.getText().toString().equals("")){
                     toast =  Toast.makeText(getContext(), "Установите время начала мероприятия!",Toast.LENGTH_SHORT);
                  }else if(editTextName.getText().toString().equals("")) {
                     toast = Toast.makeText(getContext()   , "Нет названия мероприятия !", Toast.LENGTH_SHORT);
                 }else {
-                    EventSaveFunctions.save(getContext(), editTextDate, editStartTextTime, editEndTextTime , editTextName, editNameLocation, editCategories);
+                    EventSaveFunctions.save(getContext(),editTextName, editStartTextDate, editStartTextTime, editEndtTextDate, editEndTextTime, editNameLocation, editCategories);
                     try {
                         UpdateListAfterAddElement();
                     } catch (ParseException e) {
@@ -329,7 +335,7 @@ public class Fragment_timetable extends Fragment implements View.OnClickListener
     //загрузить мероприятия в адаптер
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void loadEvents() throws ParseException {
-        ArrayList<DataEvents> dataEvents = getEventsFilterDate();// получием мероприятия из БД
+        ArrayList<DataEvents> dataEvents = getEventsFilterDate();// получаем мероприятия из БД
         rv_adapterList.setItems(dataEvents);// передаем в адаптер
     }
 

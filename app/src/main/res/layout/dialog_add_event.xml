@@ -18,6 +18,97 @@
             android:layout_height="match_parent"
             >
 
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <EditText
+                android:id="@+id/editDataStarttext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:ems="6"
+                android:focusable="false"
+                android:hint="date start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextName"
+                />
+
+            <EditText
+                android:id="@+id/editStartTimetext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ems="6"
+                android:focusable="false"
+                android:hint="time start"
+                app:layout_constraintStart_toEndOf="@id/editDataStarttext"
+                app:layout_constraintTop_toBottomOf="@+id/editTextName"
+                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="18dp"
+                />
+
+
+            <EditText
+                android:id="@+id/editDataEndtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editDataStarttext"
+                android:layout_marginTop="18dp"
+                android:layout_marginHorizontal="18dp"
+                android:ems="6"
+                android:hint="date end"
+                android:focusable="false"
+                />
+
+            <EditText
+                android:id="@+id/editEndTimetext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:ems="6"
+                android:focusable="false"
+                android:hint="time end"
+                app:layout_constraintStart_toEndOf="@+id/editDataEndtext"
+                app:layout_constraintTop_toBottomOf="@+id/editDataStarttext"
+                />
+
+
+
+            <EditText
+                android:id="@+id/editNameLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editEndTimetext" />
+
+            <EditText
+                android:id="@+id/editCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="categories"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editNameLocation" />
+
             <Button
                 android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
@@ -31,78 +122,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editCategories" />
-
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:hint="Name"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editStartTimetext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextName"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="time start"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextName" />
-
-            <EditText
-                android:id="@+id/editEndTimetext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="time end"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editStartTimetext" />
-
-            <EditText
-                android:id="@+id/editDatatext"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="date"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editEndTimetext" />
-
-            <EditText
-                android:id="@+id/editNameLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:hint="location"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editDatatext" />
-
-            <EditText
-                android:id="@+id/editCategories"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:hint="categories"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editNameLocation" />
 
             <Button
                 android:id="@+id/btnClose"
