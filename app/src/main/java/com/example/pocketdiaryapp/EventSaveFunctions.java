@@ -1,60 +1,69 @@
 package com.example.pocketdiaryapp;
 
 import android.content.Context;
+import android.os.Build;
 import android.widget.EditText;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
-import Data.Controller;
 import Data.ControllerAPI;
-import Data.DataBaseHandler;
-import Model.Event;
+import Model.EventDTO;
+import java.util.ArrayList;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class EventSaveFunctions {
     private ControllerAPI controllerAPI;
 
     public static void save(Context context, EditText editTextName, EditText editTextStartDate, EditText editTextStartTime, EditText editTextEndDate, EditText editTextEndTime, EditText editNameLocation, EditText editCategories){
 
-        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
-        //System.out.println(editTextDate.getText().toString());
+        LocalDateTime formattedDateTimeStart = null;
+        LocalDateTime formattedDateTimeEnd = null;
+
         Date date = null;
-        String formattedDate1 = null;
-        String formattedDate2 = null;
+        String formattedDateStart = null;
+        String formattedDateEnd = null;
         DateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
         try {
+
             date = formater.parse(editTextStartDate.getText().toString());
-            formattedDate1 = targetFormat.format(date);
+            formattedDateStart = targetFormat.format(date);
             date = formater.parse(editTextEndDate.getText().toString());
-            formattedDate2 = targetFormat.format(date);
+            formattedDateEnd = targetFormat.format(date);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                formattedDateTimeStart = LocalDateTime.parse(formattedDateStart + "T" + editTextStartTime.getText().toString() + ":00");
+                formattedDateTimeEnd = LocalDateTime.parse(formattedDateEnd + "T" + editTextEndTime.getText().toString() + ":00");
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Event event = new Event(
+
+        EventDTO event = new EventDTO(
                 editTextName.getText().toString(),
-                formattedDate1,
-                editTextStartTime.getText().toString(),
-                formattedDate2,
-                editTextEndTime.getText().toString(),
+                formattedDateTimeStart,
+                formattedDateTimeEnd,
                 editNameLocation.getText().toString(),
                 editCategories.getText().toString());
 
         //saveOnDB(context, event);
 
         ControllerAPI controllerAPI = new ControllerAPI();
-        List<Event> eventList = new ArrayList<>();
+        List<EventDTO> eventList = new ArrayList<>();
         eventList.add(event);
         controllerAPI.addEvent(eventList);
+
     }
 
 
-    private static void saveOnDB(Context context, Event event){
+  /*  private static void saveOnDB(Context context, Event event){
         DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
         dataBaseHandler.addEvent(event);
     }
+*/
 
 }

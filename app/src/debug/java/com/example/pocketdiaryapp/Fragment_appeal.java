@@ -9,20 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import java.util.List;
-
-import Data.Controller;
-import Model.EventAPI;
-import retrofit2.Call;
+import Model.EventDTO;
 
 public class Fragment_appeal extends Fragment implements View.OnClickListener{
 
     Button getAllBtn, genOneBtn, addBtn, updtBtn, dellBtn;
     EditText tx_result;
-    Controller controller;
-    EventAPI eventAPI;
+    EventDTO eventAPI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +39,7 @@ public class Fragment_appeal extends Fragment implements View.OnClickListener{
         dellBtn.setOnClickListener(this::onClick);
 
         tx_result = rootView.findViewById(R.id.tx_api_resulp);
-        controller = new Controller(tx_result);
+
 
 
         return rootView;
@@ -55,11 +49,11 @@ public class Fragment_appeal extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         int id = v.getId();
 
-        controller.start(id);
+        //controller.start(id);
 
     }
 
-    private EventAPI getEventOnTxResult(){
+    private EventDTO getEventOnTxResult(){
         //eventAPI = new EventAPI();
         return eventAPI;
     };

@@ -3,17 +3,14 @@ package Data;
 import android.util.Log;
 import android.widget.EditText;
 
-import com.example.pocketdiaryapp.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import Interface.ApiEventInterface;
-import Interface.ApiInterface;
 import Model.Event;
-import Model.EventAPI;
+import Model.EventDTO;
 import Model.ResponAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,12 +18,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ControllerAPI implements Callback<List<Event>> {
+public class ControllerAPI implements Callback<List<EventDTO>> {
 
-    static final String BASE_URL = "http://192.168.1.107:8080/api/";
-    private List<Event> respEventList;
+    static final String BASE_URL = "http://192.168.1.109:8080/api/";
+    private List<EventDTO> respEventList;
     private EditText textView;
-    private Call<List<Event>> call = null;
+    private Call<List<EventDTO>> call = null;
     private ApiEventInterface apiEventInterface;
     private ResponAPI responAPI;
 
@@ -57,13 +54,13 @@ public class ControllerAPI implements Callback<List<Event>> {
         return responAPI;
     };
 
-    public ResponAPI addEvent(List<Event> eventlist){
+    public ResponAPI addEvent(List<EventDTO> eventlist){
         call = apiEventInterface.addEvent(eventlist);
         call.enqueue(this);
         return responAPI;
     };
 
-    public ResponAPI updateEvent(List<Event> eventlist){
+    public ResponAPI updateEvent(List<EventDTO> eventlist){
         call = apiEventInterface.updateEvent(eventlist);
         call.enqueue(this);
         return responAPI;
@@ -76,11 +73,11 @@ public class ControllerAPI implements Callback<List<Event>> {
     };
 
     @Override
-    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+    public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
         if(response.isSuccessful() | response!=null){
             responAPI = new ResponAPI(true, response.body());
             Log.d("api: ", "Ответ и объект получен от сервера" );
-            Log.d("api: ", respEventList.toString() );
+            Log.d("api: ", responAPI.toString() );
         }else if(response.isSuccessful() | response==null){
             responAPI = new ResponAPI(true, null);
             Log.d("api: ", "Ответ без объекта получен от сервера" );
@@ -88,7 +85,7 @@ public class ControllerAPI implements Callback<List<Event>> {
     }
 
     @Override
-    public void onFailure(Call<List<Event>> call, Throwable throwable) {
+    public void onFailure(Call<List<EventDTO>> call, Throwable throwable) {
         responAPI = new ResponAPI(true, null);
         Log.d("api: ", "Ошибка вызова запроса:  " + throwable );
     }
