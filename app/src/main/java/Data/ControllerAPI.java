@@ -11,6 +11,7 @@ import java.util.List;
 import Interface.ApiEventInterface;
 import Model.Event;
 import Model.EventDTO;
+import Model.EventDTO2;
 import Model.ResponAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,12 +19,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ControllerAPI implements Callback<List<EventDTO>> {
+public class ControllerAPI implements Callback<List<EventDTO2>> {
 
     static final String BASE_URL = "http://192.168.1.109:8080/api/";
-    private List<EventDTO> respEventList;
+    private List<EventDTO2> respEventList;
     private EditText textView;
-    private Call<List<EventDTO>> call = null;
+    private Call<List<EventDTO2>> call = null;
     private ApiEventInterface apiEventInterface;
     private ResponAPI responAPI;
 
@@ -54,13 +55,13 @@ public class ControllerAPI implements Callback<List<EventDTO>> {
         return responAPI;
     };
 
-    public ResponAPI addEvent(List<EventDTO> eventlist){
+    public ResponAPI addEvent(List<EventDTO2> eventlist){
         call = apiEventInterface.addEvent(eventlist);
         call.enqueue(this);
         return responAPI;
     };
 
-    public ResponAPI updateEvent(List<EventDTO> eventlist){
+    public ResponAPI updateEvent(List<EventDTO2> eventlist){
         call = apiEventInterface.updateEvent(eventlist);
         call.enqueue(this);
         return responAPI;
@@ -73,11 +74,15 @@ public class ControllerAPI implements Callback<List<EventDTO>> {
     };
 
     @Override
-    public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
-        if(response.isSuccessful() | response!=null){
-            responAPI = new ResponAPI(true, response.body());
-            Log.d("api: ", "Ответ и объект получен от сервера" );
-            Log.d("api: ", responAPI.toString() );
+    public void onResponse(Call<List<EventDTO2>> call, Response<List<EventDTO2>> response) {
+        if(response.isSuccessful()){
+            Log.d("api: ", "Ответ от сервера получен" );
+            if(response.body().equals(null)){
+                Log.d("api: ", "объект от сервера пустой" );
+            }else {
+                responAPI = new ResponAPI(true, response.body());
+                Log.d("api: ", responAPI.getEventList().toString());
+            }
         }else if(response.isSuccessful() | response==null){
             responAPI = new ResponAPI(true, null);
             Log.d("api: ", "Ответ без объекта получен от сервера" );
@@ -85,7 +90,7 @@ public class ControllerAPI implements Callback<List<EventDTO>> {
     }
 
     @Override
-    public void onFailure(Call<List<EventDTO>> call, Throwable throwable) {
+    public void onFailure(Call<List<EventDTO2>> call, Throwable throwable) {
         responAPI = new ResponAPI(true, null);
         Log.d("api: ", "Ошибка вызова запроса:  " + throwable );
     }

@@ -6,10 +6,10 @@ import java.util.List;
 
 public class ResponAPI {
     private boolean isSuccessful;
-    private List<EventDTO> eventList;
+    private List<EventDTO2> eventList;
 
 
-    public ResponAPI(boolean isSuccessful, List<EventDTO> eventList) {
+    public ResponAPI(boolean isSuccessful, List<EventDTO2> eventList) {
         this.isSuccessful = isSuccessful;
         this.eventList = eventList;
     }
@@ -26,15 +26,15 @@ public class ResponAPI {
         isSuccessful = successful;
     }
 
-    public List<EventDTO> getEventList() {
+    public List<EventDTO2> getEventList() {
         return eventList;
     }
 
-    public void setEventList(List<EventDTO> eventList) {
+    public void setEventList(List<EventDTO2> eventList) {
         this.eventList = eventList;
     }
 
-    public String toString(){
+   /* public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         String s;
         stringBuilder.append(" isSuccessful= " + isSuccessful);
@@ -52,5 +52,5 @@ public class ResponAPI {
         }
         s = stringBuilder.toString();
         return s;
-    }
+    }*/
 }
